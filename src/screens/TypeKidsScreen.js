@@ -55,7 +55,8 @@ class TypeKidsScreen extends Component {
             <View style={{ flex: 1, backgroundColor: "#f0efef", justifyContent: "center", alignItems: "center" }}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={styles.views}>
-                        < TouchableOpacity  >
+                        < TouchableOpacity onPress={
+                            () => this.props.navigation.navigate('ListKalainfantScreen')} >
                             <Image source={require('../Picture//pic/loading/babi.jpg')}
                                 style={styles.img}></Image>
                         </TouchableOpacity>
@@ -68,7 +69,9 @@ class TypeKidsScreen extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.views}>
-                        <TouchableOpacity>
+                        < TouchableOpacity onPress={
+                            () => this.props.navigation.navigate('ListKalaboyScreen')
+                        } >
                             <Image source={require('../Picture//pic/loading/boy2.jpg')}
                                 style={styles.img}></Image>
                         </TouchableOpacity>

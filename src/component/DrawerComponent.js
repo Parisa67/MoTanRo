@@ -6,11 +6,9 @@
  * @flow
  */
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-// import Drawer from 'react-native-drawer'
-// import Icon from 'react-native-vector-icons/Fontisto';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Icon, Left } from 'native-base';
 import React, { Component } from 'react';
+
 
 import {
   SafeAreaView,
@@ -40,10 +38,33 @@ import {
 
 class DrawerComponent extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      user: {},
+      loginOutIcon: "",
+      loginOutText: "",
+      display: "",
+    }
+    this._GetStorage();
+
+  }
+  _GetStorage = async () => {
+    this.setState({ user: await AsyncStorage.getItem('userToken') });
+    alert(this.state.user)
+
+    if (this.state.user === null) {
+      this.setState({ loginOutIcon: 'login', loginOutText: 'ورود/ثبت نام', display: "none" })
+    }
+    else {
+      this.setState({ loginOutIcon: 'logout', loginOutText: 'خروج', display: "flex" })
+
+    }
+  }
+
   componentDidMount() {
 
   }
-
   render() {
 
 
@@ -52,13 +73,15 @@ class DrawerComponent extends Component {
         { flex: 1 }}>
         <StatusBar backgroundColor="#e80442" barStyle="light-content" />
         <View style={{ justifyContent: "center", alignItems: "center" }} >
-          <Image source={require('../Picture/logo.jpg')} style={{ height: 60, width: 280, marginTop: 20, marginBottom: 10, marginLeft: 10, marginRight: 10, }}></Image>
+          <Image source={require('../Picture/logo.jpg')}
+            style={{ height: 60, width: 280, marginTop: 20, marginBottom: 10, marginLeft: 10, marginRight: 10, }}></Image>
 
         </View>
         <ScrollView>
           {/* onPress={this.props.navigation.navigate('HomeScreen')} */}
 
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Auth')}  >
+          <TouchableOpacity
+            onPress={this._LoginOutPress}  >
             <View style={{
               marginBottom: 10,
               flexDirection: "row-reverse",
@@ -66,7 +89,7 @@ class DrawerComponent extends Component {
               borderBottomColor: '#ACABAB',
               backgroundColor: "#d60644"
             }}>
-              <Icon name="login" type='MaterialCommunityIcons'
+              <Icon name={this.state.loginOutIcon} type='MaterialCommunityIcons'
                 style={{
                   marginTop: 10,
                   paddingRight: 5,
@@ -83,7 +106,7 @@ class DrawerComponent extends Component {
                   fontSize: 17,
                   paddingTop: 15,
                   marginBottom: 10,
-                }}>ورود/ثبت نام</Text>
+                }}>{this.state.loginOutText}</Text>
 
             </View>
           </TouchableOpacity>
@@ -125,7 +148,9 @@ class DrawerComponent extends Component {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity  >
+          < TouchableOpacity onPress={
+            () => this.props.navigation.navigate('CartScreen')
+          } >
             <View style={styles.Views}>
               <Icon type='FontAwesome5' name="shopping-cart"
                 style={{
@@ -142,15 +167,30 @@ class DrawerComponent extends Component {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity  >
+          {/* style={[{ this.state.display }, backgroundColor:"red"]} */}
+          {(this.state.user !== null) && (<TouchableOpacity >
             <View style={styles.Views}>
               <Icon type='MaterialCommunityIcons' name="account-card-details-outline" style={styles.icons} />
               <Text style={styles.texts}> پروفایل</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity>)}
+
+
         </ScrollView>
       </View>
     );
+
+  }
+  _LoginOutPress = async () => {
+    if (this.state.user === null) {
+      this.props.navigation.navigate('Auth')
+    }
+    else {
+      await AsyncStorage.removeItem('userToken')
+      this.setState({ user: null })
+      this.props.navigation.closeDrawer();
+      this.props.navigation.navigate('Home')
+    }
 
   }
 

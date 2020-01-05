@@ -19,7 +19,7 @@ import {
   FlatList, ImageBackground, AsyncStorage,
   Image
 } from 'react-native';
-import { number } from 'prop-types';
+
 
 
 class DetailsScreen extends Component {
@@ -39,11 +39,20 @@ class DetailsScreen extends Component {
       originalPrice: [],
       payPrice: [],
       isLoad: true,
-      isModalVisible: false
+      isModalVisible: false,
+      user: {},
+      modaloriginalPrice: "",
+      modalpayPrice: "",
+
 
     }
-  }
+    this._GetStorage();
 
+  }
+  _GetStorage = async () => {
+    this.setState({ user: await AsyncStorage.getItem('userToken') });
+
+  }
   componentDidMount() {
     fetch(global.ServerUri + 'api/v1/products/detail/' + this.props.navigation.getParam('itemId'))
       .then((response) => response.json())
@@ -82,7 +91,16 @@ class DetailsScreen extends Component {
 
   }
   toggleModal = () => {
+    if (this.state.user !== null) {
+      this.toggleModal1();
+    } else {
+      alert("لطفا وارد حساب کاربری خود شوید...")
+    }
+  };
+  toggleModal1 = () => {
+
     this.setState({ isModalVisible: !this.state.isModalVisible });
+
   };
 
 
@@ -131,7 +149,7 @@ class DetailsScreen extends Component {
             <View style={{ flexDirection: "row-reverse", justifyContent: "flex-start", marginTop: 20, alignItems: "center", }}>
               <Text style={{ marginRight: 20, padding: 10, fontSize: 20, }}>رنگ</Text>
               {console.log(this.state.colors)}
-              {/* ############################################## */}
+
               <ModalDropdown options={this.state.colors} defaultValue={this.state.colors[0]}
                 defaultIndex={0}
                 dropdownStyle={{ borderColor: "#c8cbce", borderWidth: 1, width: 80 }}
@@ -161,7 +179,7 @@ class DetailsScreen extends Component {
             padding: 10,
             alignItems: "flex-end"
           }} >
-
+            {/* ############################################## */}
             <TouchableOpacity onPress={this.toggleModal}>
               <Text style={{
                 fontSize: 20,
@@ -183,7 +201,7 @@ class DetailsScreen extends Component {
 
               }}>
 
-                <TouchableOpacity onPress={() => this.toggleModal()}>
+                <TouchableOpacity onPress={() => this.toggleModal1()}>
                   <Icon name="close" type='AntDesign' style={styles.icons} />
                 </TouchableOpacity>
 
@@ -193,17 +211,34 @@ class DetailsScreen extends Component {
                   flexDirection: "column",
                   marginTop: 20
                 }}>
-                  <Text style={{ color: "white", fontSize: 24, marginBottom: 10, }}>مبلغ مورد نظر را وارد کنید</Text>
-                  <TextInput placeholder="به تومان وارد کنید" placeholderTextColor={'gray'}
+                  <Text style={{ color: "white", fontSize: 24, marginBottom: 10, }}>*مبلغ و تخفیف را به تومان وارد کنید</Text>
+                  <TextInput p
+                    laceholder="مبلغ"
+                    placeholderTextColor={'gray'}
+                    onChangeText={(text) => this.setState({ modaloriginalPrice: text })}
+                    value={this.state.modaloriginalPrice}
                     style={{
                       height: 50, autoFocus: true,
                       fontSize: 20, width: 200, padding: 7,
-                      color: 'gray', type: 'number',
+                      color: 'white', type: 'number',
                       backgroundColor: 'transparent',
                       textAlign: "center", marginBottom: 15,
                       borderBottomColor: 'gray', borderBottomWidth: 2,
                     }} />
-                  <TouchableOpacity onPress={this.toggleModal} >
+                  <TextInput
+                    placeholder="تخفیف"
+                    placeholderTextColor={'gray'}
+                    onChangeText={(text) => this.setState({ modalpayPrice: text })}
+                    value={this.state.modalpayPrice}
+                    style={{
+                      height: 50, autoFocus: true,
+                      fontSize: 20, width: 200, padding: 7,
+                      color: 'white', type: 'number',
+                      backgroundColor: 'transparent',
+                      textAlign: "center", marginBottom: 15,
+                      borderBottomColor: 'gray', borderBottomWidth: 2,
+                    }} />
+                  <TouchableOpacity onPress={() => this._incPrice()} >
                     <Text
                       style={{
                         color: "black",
@@ -217,7 +252,12 @@ class DetailsScreen extends Component {
 
               </View>
             </Modal>
+            <View style={{
+              backgroundColor: "#f0e5e7", width: 320
+              , marginBottom: 10, flexDirection: "column", borderRadius: 6, marginRight: 10, marginLeft: 10,
+            }}>
 
+            </View>
             <FlatList showsHorizontalScrollIndicator={false} style={{ marginTop: 20, }}
               data={this.state.resellers} renderItem={({ item }) => {
                 return (
@@ -244,6 +284,59 @@ class DetailsScreen extends Component {
         </ScrollView>
       </View>
     )
+  }
+  _incPrice = () => {
+    let newreseler = {
+      price: {
+        originalPrice: this.state.modaloriginalPrice,
+        payPrice: this.state.modalpayPrice
+      }
+    }
+
+    let reselerarray = this.state.resellers;
+    reselerarray.push(newreseler);
+    this.setState({ resellers: reselerarray })
+    console.log(reselerarray);
+
+    // this.setState({})
+    this.toggleModal1();
+
+    //   var myHeaders = new Headers();
+    //   myHeaders.append("Content-Type", "application/json");
+
+    //   var raw = JSON.stringify({
+    //     "Price": this.state.modaloriginalPrice,
+    //     "Discount": this.state.modalpayPrice
+    //   });
+
+    //   var requestOptions = {
+    //     method: 'POST',
+    //     headers: myHeaders,
+    //     body: raw,
+    //     redirect: 'follow'
+    //   };
+
+    //   fetch(global.ServerUri + "api/v1/products/add-price", requestOptions)
+    //     .then((response) => response.json())
+    //     .then((responseJson) => {
+    //       this.setState({
+    //         result: responseJson,
+    //         isSuccess: responseJson.isSuccess,
+    //         errorMessage: responseJson.error
+    //       })
+
+    //       if (this.state.isSuccess == true) {
+    //         //this._SetStorage(this.state.result)
+    //         toggleModal1();
+    //         // this.componentDidMount();
+    //         this.props.navigation.push();
+    //       }
+    //       else
+    //         alert(this.state.errorMessage);
+
+    //     })
+    //     .catch(error => console.log('error', error));
+
   }
 
 }

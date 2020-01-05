@@ -49,7 +49,7 @@ class ListKalagirlScreen extends Component {
 
     componentDidMount() {
 
-        fetch(global.ServerUri + 'api/v1/products/sub-Category/4')
+        fetch(global.ServerUri + 'api/v1/home/kids/girls')
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({ Girl: responseJson.productTypes })
@@ -64,7 +64,7 @@ class ListKalagirlScreen extends Component {
 
         return (
             <View style={
-                { flex: 1, backgroundColor: "red" }}>
+                { flex: 1, }}>
                 <ScrollView>
 
                     <View style={{ marginTop: 16, marginLeft: 5, marginRight: 5 }}>
@@ -76,9 +76,9 @@ class ListKalagirlScreen extends Component {
                                         onPress={() => this.props.navigation.navigate('Product', { 'itemId': item.productTypeId })}>
 
                                         <View style={{ flexDirection: 'column', alignItems: "center", justifyContent: "center" }} >
-                                            {/* <Image style={{ width: 181, height: 185, }}
-                                                source={{ uri: (global.ServerUri + item.products.picture) }} /> */}
-                                            <Text style={styles.textpic}> {item.productType}</Text>
+                                            <Image style={{ width: 181, height: 185, }}
+                                                source={{ uri: (global.ServerUri + item.productTypeImage) }} />
+                                            <Text style={styles.textpic}> {item.name}</Text>
                                         </View>
 
                                     </TouchableOpacity>

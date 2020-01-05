@@ -18,6 +18,9 @@ import DetailsScreen from './src/screens/DetailsScreen';
 import ListKalawomanScreen from './src/screens/ListKalawomanScreen';
 import ListKalamanScreen from './src/screens/ListKalamanScreen';
 import ListKalagirlScreen from './src/screens/ListKalagirlScreen';
+import ListKalaboyScreen from './src/screens/ListKalaboyScreen';
+import ListKalainfantScreen from './src/screens/ListKalainfantScreen';
+import CartScreen from './src/screens/CartScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import TypeKidsScreen from './src/screens/TypeKidsScreen';
@@ -97,6 +100,39 @@ const AppStack = createStackNavigator({
     },
     ListKalagirlScreen: {
         screen: ListKalagirlScreen,
+        navigationOptions: ({
+            navigation
+        }) => ({
+            headerTitle: < HeaderTitle menu={
+                () => navigation.toggleDrawer()
+            }
+            />
+        })
+    },
+    ListKalaboyScreen: {
+        screen: ListKalaboyScreen,
+        navigationOptions: ({
+            navigation
+        }) => ({
+            headerTitle: < HeaderTitle menu={
+                () => navigation.toggleDrawer()
+            }
+            />
+        })
+    },
+    ListKalainfantScreen: {
+        screen: ListKalainfantScreen,
+        navigationOptions: ({
+            navigation
+        }) => ({
+            headerTitle: < HeaderTitle menu={
+                () => navigation.toggleDrawer()
+            }
+            />
+        })
+    },
+    CartScreen: {
+        screen: CartScreen,
         navigationOptions: ({
             navigation
         }) => ({

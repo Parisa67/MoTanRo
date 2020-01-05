@@ -5,7 +5,8 @@
 * @format
  * @flow
  */
-import CheckboxFormX from 'react-native-checkbox-form';
+
+
 import { KeyboardAvoidingView } from 'react-native';
 import React, { Component } from 'react';
 import { Icon, Left } from 'native-base';
@@ -174,16 +175,7 @@ class RegisterScreen extends Component {
                     value={this.state.company} >
                   </TextInput>
                 </View>
-                <CheckboxFormX
-                  style={{ width: 320 }}
-                  // dataSource={mockData}
-                  itemShowKey="label"
-                  // itemCheckedKey="RNchecked"
-                  // iconSize={16}
-                  // formHorizontal={true}
-                  labelHorizontal={false}
-                  onChecked={(item) => this._onSelect(item)}
-                />
+
               </View>
 
               <View style={{ flex: 5, justifyContent: 'flex-start', alignItems: 'center', }}>
