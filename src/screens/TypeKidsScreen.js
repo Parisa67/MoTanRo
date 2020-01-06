@@ -56,21 +56,21 @@ class TypeKidsScreen extends Component {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={styles.views}>
                         < TouchableOpacity onPress={
-                            () => this.props.navigation.navigate('ListKalainfantScreen')} >
+                            () => this.props.navigation.navigate('ListKalainfant')} >
                             <Image source={require('../Picture//pic/loading/babi.jpg')}
                                 style={styles.img}></Image>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.views}>
                         < TouchableOpacity onPress={
-                            () => this.props.navigation.navigate('ListKalagirlScreen')}>
+                            () => this.props.navigation.navigate('ListKalagirl')}>
                             <Image source={require('../Picture//pic/loading/girl2.jpg')}
                                 style={styles.img}></Image>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.views}>
                         < TouchableOpacity onPress={
-                            () => this.props.navigation.navigate('ListKalaboyScreen')
+                            () => this.props.navigation.navigate('ListKalaboy')
                         } >
                             <Image source={require('../Picture//pic/loading/boy2.jpg')}
                                 style={styles.img}></Image>

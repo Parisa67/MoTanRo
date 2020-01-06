@@ -17,7 +17,7 @@ import {
   ScrollView,
   View,
   Text,
-  Platform,
+  Switch,
   Button,
   ActivityIndicator,
   StatusBar,
@@ -43,9 +43,14 @@ class RegisterScreen extends Component {
       press1: false,
       showPass2: true,
       press2: false,
+      switch1Value: false,
 
     };
   }
+  toggleSwitch1 = (value) => {
+    this.setState({switch1Value: value})
+    console.log('Switch 1 is: ' + value)
+ }
   showPass1 = () => {
     if (this.state.showPass1 == true) {
       this.setState({ showPass1: false, press1: true });
@@ -176,6 +181,13 @@ class RegisterScreen extends Component {
                   </TextInput>
                 </View>
 
+              </View>
+              <View style={{display:"flex",flexDirection:"row-reverse",justifyContent:"center",alignItems:"center",}}>
+                <Text style={{fontSize:24,color:'white',}}>فروشنده هستم</Text>
+              <Switch
+                  onValueChange = {this.toggleSwitch1}
+                  value = {this.state.switch1Value}
+                 />
               </View>
 
               <View style={{ flex: 5, justifyContent: 'flex-start', alignItems: 'center', }}>

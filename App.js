@@ -25,6 +25,7 @@ import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import TypeKidsScreen from './src/screens/TypeKidsScreen';
 import ProductScreen from './src/screens/ProductScreen';
+import profileScreen from './src/screens/profileScreen'
 
 import DrawerComponent from './src/component/DrawerComponent';
 import HeaderTitle from './src/component/HeaderTitle';
@@ -87,7 +88,7 @@ const AppStack = createStackNavigator({
             />
         })
     },
-    ListKalamanScreen: {
+    ListKalaman: {
         screen: ListKalamanScreen,
         navigationOptions: ({
             navigation
@@ -98,7 +99,7 @@ const AppStack = createStackNavigator({
             />
         })
     },
-    ListKalagirlScreen: {
+    ListKalagirl: {
         screen: ListKalagirlScreen,
         navigationOptions: ({
             navigation
@@ -109,7 +110,7 @@ const AppStack = createStackNavigator({
             />
         })
     },
-    ListKalaboyScreen: {
+    ListKalaboy: {
         screen: ListKalaboyScreen,
         navigationOptions: ({
             navigation
@@ -120,7 +121,7 @@ const AppStack = createStackNavigator({
             />
         })
     },
-    ListKalainfantScreen: {
+    ListKalainfant: {
         screen: ListKalainfantScreen,
         navigationOptions: ({
             navigation
@@ -142,6 +143,17 @@ const AppStack = createStackNavigator({
             />
         })
     },
+    profile: {
+        screen: profileScreen,
+        navigationOptions: ({
+            navigation
+        }) => ({
+            headerTitle: < HeaderTitle menu={
+                () => navigation.toggleDrawer()
+            }
+            />
+        })
+    },
 }, {
     defaultNavigationOptions: {
         headerStyle: {
@@ -154,6 +166,9 @@ const AppStack = createStackNavigator({
 const AuthStack = createStackNavigator({
     Login: LoginScreen,
     Register: RegisterScreen,
+   // headerMode: 'none',
+   
+   
 });
 const AppDrawer = createDrawerNavigator({
 

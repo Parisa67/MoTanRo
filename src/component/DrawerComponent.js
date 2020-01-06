@@ -133,7 +133,7 @@ class DrawerComponent extends Component {
           </TouchableOpacity>
 
 
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('ListKalamanScreen')} >
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('ListKalaman')} >
             <View style={styles.View}>
               <Icon name="ios-man" style={styles.icons} />
               <Text style={styles.texts}> مردانه</Text>
@@ -168,7 +168,7 @@ class DrawerComponent extends Component {
           </TouchableOpacity>
 
           {/* style={[{ this.state.display }, backgroundColor:"red"]} */}
-          {(this.state.user !== null) && (<TouchableOpacity >
+          {(this.state.user !== null) && (<TouchableOpacity onPress={() => this.props.navigation.navigate('profile')} >
             <View style={styles.Views}>
               <Icon type='MaterialCommunityIcons' name="account-card-details-outline" style={styles.icons} />
               <Text style={styles.texts}> پروفایل</Text>
