@@ -46,16 +46,15 @@ class LoginScreen extends Component {
     };
 
 
-    console.log("LoginScreen")
   }
 
   showPass = () => {
     if (this.state.showPass == true) {
       this.setState({ showPass: false, press: true });
-      console.log('false');
+     
     } else {
       this.setState({ showPass: true, press: false });
-      console.log('true');
+     
 
     }
   }

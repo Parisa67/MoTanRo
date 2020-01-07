@@ -39,6 +39,7 @@ class RegisterScreen extends Component {
       password1: "",
       password2: "",
       check: "",
+      errorMessage:"",
       showPass1: true,
       press1: false,
       showPass2: true,

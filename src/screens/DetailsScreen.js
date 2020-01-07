@@ -41,20 +41,41 @@ class DetailsScreen extends Component {
       isLoad: true,
       isModalVisible: false,
       user: {},
-      modaloriginalPrice: "",
-      modalpayPrice: "",
+      modaloriginalPrice: 0,
+      modalDiscountPrice: 0,
+      errorMessage:"",
+      addPriceResult:{},
+      addPriceIsSuccess:false,
+      productId:parseInt(this.props.navigation.getParam('itemId'))
 
 
     }
+
     this._GetStorage();
 
   }
-  _GetStorage = async () => {
-    this.setState({ user: await AsyncStorage.getItem('userToken') });
+       _GetStorage = async () => {
+           this.setState({ user: JSON.parse(await AsyncStorage.getItem('userToken')) });
 
-  }
-  componentDidMount() {
-    fetch(global.ServerUri + 'api/v1/products/detail/' + this.props.navigation.getParam('itemId'))
+        }
+        componentDidMount() {
+           this._fechDetail();
+
+       }
+        toggleModal = () => {
+          if (this.state.user !== null) { this.toggleModal1();}
+           else
+           {alert("لطفا وارد حساب کاربری خود شوید...")
+           }
+         };
+         toggleModal1 = () => {
+
+           this.setState({ isModalVisible: !this.state.isModalVisible });
+         };
+
+
+  _fechDetail() {
+    fetch(global.ServerUri + 'api/v1/products/detail/' + this.state.productId)
       .then((response) => response.json())
       .then((responseJson) => {
         const ImagesF = [];
@@ -79,30 +100,14 @@ class DetailsScreen extends Component {
           originalPrice: originalPriceF,
           payPrice: payPriceF,
           isLoad: false
-
         });
-        console.log(this.state.originalPrice)
-        console.log(this.state.payPrice)
+        console.log(this.state.originalPrice);
+        console.log(this.state.payPrice);
       })
-
       .catch((error) => {
         console.error(error);
       });
-
   }
-  toggleModal = () => {
-    if (this.state.user !== null) {
-      this.toggleModal1();
-    } else {
-      alert("لطفا وارد حساب کاربری خود شوید...")
-    }
-  };
-  toggleModal1 = () => {
-
-    this.setState({ isModalVisible: !this.state.isModalVisible });
-
-  };
-
 
   render() {
     if (this.state.isLoad)
@@ -212,10 +217,10 @@ class DetailsScreen extends Component {
                   marginTop: 20
                 }}>
                   <Text style={{ color: "white", fontSize: 24, marginBottom: 10, }}>*مبلغ و تخفیف را به تومان وارد کنید</Text>
-                  <TextInput p
-                    laceholder="مبلغ"
+                  <TextInput 
+                    placeholder="مبلغ"
                     placeholderTextColor={'gray'}
-                    onChangeText={(text) => this.setState({ modaloriginalPrice: text })}
+                    onChangeText={(text) => this.setState({ modaloriginalPrice: parseInt(text,10) })}
                     value={this.state.modaloriginalPrice}
                     style={{
                       height: 50, autoFocus: true,
@@ -228,8 +233,8 @@ class DetailsScreen extends Component {
                   <TextInput
                     placeholder="تخفیف"
                     placeholderTextColor={'gray'}
-                    onChangeText={(text) => this.setState({ modalpayPrice: text })}
-                    value={this.state.modalpayPrice}
+                    onChangeText={(text) => this.setState({ modalDiscountPrice: parseInt(text,10) })}
+                    value={this.state.modalDiscountPrice}
                     style={{
                       height: 50, autoFocus: true,
                       fontSize: 20, width: 200, padding: 7,
@@ -238,7 +243,7 @@ class DetailsScreen extends Component {
                       textAlign: "center", marginBottom: 15,
                       borderBottomColor: 'gray', borderBottomWidth: 2,
                     }} />
-                  <TouchableOpacity onPress={() => this._incPrice()} >
+                  <TouchableOpacity onPress={this._incPrice} >
                     <Text
                       style={{
                         color: "black",
@@ -286,56 +291,44 @@ class DetailsScreen extends Component {
     )
   }
   _incPrice = () => {
-    let newreseler = {
-      price: {
-        originalPrice: this.state.modaloriginalPrice,
-        payPrice: this.state.modalpayPrice
-      }
-    }
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-    let reselerarray = this.state.resellers;
-    reselerarray.push(newreseler);
-    this.setState({ resellers: reselerarray })
-    console.log(reselerarray);
+    var raw = JSON.stringify({
+      "ProductId":this.state.productId,
+      "ShopUserId":this.state.user.id,
+      "Price":this.state.modaloriginalPrice,
+      "Discount":this.state.modalDiscountPrice
+    });
 
-    // this.setState({})
-    this.toggleModal1();
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
 
-    //   var myHeaders = new Headers();
-    //   myHeaders.append("Content-Type", "application/json");
+    fetch(global.ServerUri+"api/v1/products/add-price", requestOptions)
+      .then(response => response.json())
+      .then((responseJson) => {
+        this.setState({
+          addPriceResult: responseJson,
+          addPriceIsSuccess: responseJson.isSuccess,
+          errorMessage: responseJson.error
+        })
 
-    //   var raw = JSON.stringify({
-    //     "Price": this.state.modaloriginalPrice,
-    //     "Discount": this.state.modalpayPrice
-    //   });
+        if (this.state.addPriceIsSuccess == true) {
+         
+          // this.props.navigation.navigate('App');
+          this.toggleModal1();
+          this._fechDetail();
 
-    //   var requestOptions = {
-    //     method: 'POST',
-    //     headers: myHeaders,
-    //     body: raw,
-    //     redirect: 'follow'
-    //   };
+        }
+        else
+          alert(this.state.errorMessage);
 
-    //   fetch(global.ServerUri + "api/v1/products/add-price", requestOptions)
-    //     .then((response) => response.json())
-    //     .then((responseJson) => {
-    //       this.setState({
-    //         result: responseJson,
-    //         isSuccess: responseJson.isSuccess,
-    //         errorMessage: responseJson.error
-    //       })
-
-    //       if (this.state.isSuccess == true) {
-    //         //this._SetStorage(this.state.result)
-    //         toggleModal1();
-    //         // this.componentDidMount();
-    //         this.props.navigation.push();
-    //       }
-    //       else
-    //         alert(this.state.errorMessage);
-
-    //     })
-    //     .catch(error => console.log('error', error));
+      })
+      .catch(error => console.log('error', error));
 
   }
 
