@@ -22,8 +22,6 @@ import {
 
 class HeaderTitle extends Component {
     render() {
-
-
         return (
             < View style={
                 {
@@ -42,8 +40,16 @@ class HeaderTitle extends Component {
                     <Image
                         source={require('../Picture/mo.jpg')} style={{}}></Image>
                 </View>
-                <Icon type='FontAwesome5' name="shopping-cart"
-                    style={{ fontSize: 23, paddingHorizontal: 14, color: "white", alignSelf: 'center', }} />
+                <View style={{marginTop:10}}> 
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('CartScreen')} >
+                        <Icon type='FontAwesome5' name="shopping-cart"
+                        style={{ fontSize: 23,
+                                paddingHorizontal: 14,
+                                color: "white",
+                                alignSelf: 'center', }} />
+                    </TouchableOpacity>
+                </View>
+                
             </View>
         );
     }

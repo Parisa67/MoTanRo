@@ -161,7 +161,9 @@ class LoginScreen extends Component {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({ "emailOrPhoneNumber": this.state.text, "password": this.state.password });
+    var raw = JSON.stringify({
+        "emailOrPhoneNumber": this.state.text,
+        "password": this.state.password });
 
     var requestOptions = {
       method: 'POST',

@@ -148,9 +148,7 @@ class DrawerComponent extends Component {
             </View>
           </TouchableOpacity>
 
-          < TouchableOpacity onPress={
-            () => this.props.navigation.navigate('CartScreen')
-          } >
+          < TouchableOpacity onPress={() => this.props.navigation.navigate('CartScreen')} >
             <View style={styles.Views}>
               <Icon type='FontAwesome5' name="shopping-cart"
                 style={{

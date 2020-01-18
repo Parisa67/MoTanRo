@@ -46,9 +46,10 @@ class DetailsScreen extends Component {
       errorMessage:"",
       addPriceResult:{},
       addPriceIsSuccess:false,
-      productId:parseInt(this.props.navigation.getParam('itemId'))
-
-
+      productId:parseInt(this.props.navigation.getParam('itemId')),
+      isSell:false,
+     
+    
     }
 
     this._GetStorage();
@@ -56,6 +57,7 @@ class DetailsScreen extends Component {
   }
        _GetStorage = async () => {
            this.setState({ user: JSON.parse(await AsyncStorage.getItem('userToken')) });
+           this.setState(this.state.isSell=this.state.user.isSeller);
 
         }
         componentDidMount() {
@@ -63,10 +65,22 @@ class DetailsScreen extends Component {
 
        }
         toggleModal = () => {
-          if (this.state.user !== null) { this.toggleModal1();}
+         
+          if (this.state.user !== null) 
+          {
+            if (this.state.isSell) {
+              this.toggleModal1();
+            }
+            else {
+              alert("به عنوان خریدار نمی توانید قیمت اضافه کنید!")
+               } 
+
+          }
            else
            {alert("لطفا وارد حساب کاربری خود شوید...")
            }
+          
+          
          };
          toggleModal1 = () => {
 
@@ -271,15 +285,26 @@ class DetailsScreen extends Component {
                     , marginBottom: 10, flexDirection: "column", borderRadius: 6, marginRight: 10, marginLeft: 10,
                   }}>
                     <TouchableOpacity>
-                      <Text style={{ fontSize: 23, marginRight: 20, }}>فروشنده: </Text>
-                      <Text style={{ fontSize: 20, marginRight: 47, }}> {item.resellerName}</Text>
-                      <View style={{ flexDirection: "row-reverse", justifyContent: "flex-start" }}>
-                        <Text style={{ fontSize: 20, marginRight: 50, }}>قیمت: </Text>
-                        <Text style={{ fontSize: 20, marginRight: 50, color: 'red' }}> {item.price.originalPrice}</Text>
+                      
+                      <View style={{ flexDirection: "row-reverse", justifyContent: "space-around"}}>
+                        <Text style={{ fontSize: 23,  }}>فروشنده: </Text>
+                        <Text style={{ fontSize: 20, }}> {item.resellerName}</Text>
                       </View>
-                      <View style={{ flexDirection: "row-reverse", justifyContent: "flex-start" }}>
-                        <Text style={{ fontSize: 20, marginRight: 50, }}>با تخفیف: </Text>
-                        <Text style={{ fontSize: 20, marginRight: 50, color: 'green' }}> {item.price.payPrice}</Text>
+                      <View style={{ flexDirection: "row-reverse", justifyContent: "space-around",marginTop:5 }}>
+                        <Text style={{ fontSize: 20, }}>قیمت: </Text>
+                        <Text style={{ fontSize: 20,  color: 'red' }}> {item.price.originalPrice}</Text>
+                      </View>
+                      <View style={{ flexDirection: "row-reverse", justifyContent: "space-around" }}>
+                        <Text style={{ fontSize: 20, }}>با تخفیف: </Text>
+                        <Text style={{ fontSize: 20,  color: 'green' }}> {item.price.payPrice}</Text>
+                      </View>
+                      <View style={{flexDirection:"row",justifyContent:"center",marginBottom:15}}>
+                      {(this.state.user.id === item.id)&&(<TouchableOpacity >
+                        <Text style={{color: "black",fontSize: 20, padding: 10,backgroundColor: "#f3d2e3",
+                        height: 40, width: 200,marginTop:10,marginLeft:10,
+                        borderRadius: 15, textAlign: "center"}}>حذف </Text>
+                          {/* <Icon name="close" type='AntDesign' style={styles.icons2} /> */}
+                      </TouchableOpacity>)}
                       </View>
                     </TouchableOpacity>
                   </View>)
@@ -340,7 +365,14 @@ const styles = StyleSheet.create({
     marginLeft: 310,
     marginTop: 20,
 
-  }
+  },
+  icons2: {
+    fontSize: 29,
+    color: "red",
+    marginLeft: 30,
+    marginTop: 20,
+
+  },
 
 });
 export default DetailsScreen;

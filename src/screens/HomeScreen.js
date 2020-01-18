@@ -44,7 +44,7 @@ import {
 class HomeScreen extends Component {
     constructor(props) {
         super(props)
-        console.log(global.ServerUri)
+        
         this.state = {
 
             Women: [],
@@ -112,14 +112,14 @@ class HomeScreen extends Component {
         // if (!this.state.offer.length) return <ActivityIndicator />
 
         return (
-            <View style={{ flex: 1, backgroundColor: "#F7F7F7" }}>
+            <View style={{ flex: 1, backgroundColor: "#F7F7F7" ,}}>
                 <ScrollView>
                     <View>
                         <BackgroundCarousel images={this.state.offer} />
                     </View>
 
                     <View style={{ marginBottom: 30, }}>
-                        <Text style={{ fontSize: 30, textAlign: "center", marginBottom: 30 }}>بانوان</Text>
+                        <Text style={{ fontSize: 30, textAlign: "center",fontFamily:"343a5dddcff7f1cbb08d964cc275cb50ce721215011931", marginBottom: 30 }}>بانوان</Text>
                         <FlatList horizontal showsHorizontalScrollIndicator={false} data={this.state.Women}
                             renderItem={({ item }) => (
                                 <View >
@@ -138,7 +138,7 @@ class HomeScreen extends Component {
                     </View>
 
                     <View style={{ marginBottom: 30, }}>
-                        <Text style={{ fontSize: 30, textAlign: "center", marginBottom: 30, }}>آقایان</Text>
+                        <Text style={{ fontSize: 30, textAlign: "center", marginBottom: 30,fontFamily:"343a5dddcff7f1cbb08d964cc275cb50ce721215011931", }}>آقایان</Text>
                         <FlatList horizontal showsHorizontalScrollIndicator={false} data={this.state.Men}
                             renderItem={({ item }) => (
                                 <View >

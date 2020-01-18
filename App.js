@@ -132,14 +132,17 @@ const AppStack = createStackNavigator({
             />
         })
     },
+    
     CartScreen: {
         screen: CartScreen,
         navigationOptions: ({
             navigation
         }) => ({
-            headerTitle: < HeaderTitle menu={
+            headerTitle: 
+            < HeaderTitle menu={
                 () => navigation.toggleDrawer()
             }
+            // navigation={this.props}
             />
         })
     },
@@ -170,6 +173,7 @@ const AuthStack = createStackNavigator({
    
    
 });
+
 const AppDrawer = createDrawerNavigator({
 
     Home: AppStack
@@ -192,7 +196,9 @@ const AppNavigator = createSwitchNavigator({
 
 
 const AppContainer = createAppContainer(AppNavigator);
-global.ServerUri = "http://192.168.1.119:5000/";
+global.ServerUri = "http://192.168.1.104:5000/";
 export default App = () => {
+    // const {navigation}= this.props;
+
     return (< AppContainer />)
 }
