@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginTop: 10,
         marginBottom: 3,
-        fontFamily: 'Kamran'
+        fontFamily:"BYekan+"
     },
     TouchableOpacityStyle: {
         borderColor: '#E5E2E2',

@@ -44,7 +44,7 @@ import {
 class HomeScreen extends Component {
     constructor(props) {
         super(props)
-        
+
         this.state = {
 
             Women: [],
@@ -53,7 +53,14 @@ class HomeScreen extends Component {
             offer: [],
 
         }
+        this._GetStorage();
 
+    }
+    _GetStorage = async () => {
+        this.setState({ user: await AsyncStorage.getItem('userToken') });
+        if (this.state.user === null) {
+            
+        }
     }
 
     componentDidMount() {
@@ -66,9 +73,9 @@ class HomeScreen extends Component {
 
                 const statusCode = responseJson.status;
                 const ImagesF = [];
-                responseJson.offers.forEach(img => ImagesF.push(`${global.ServerUri}${img.offerImage}`));
+                // responseJson.offers.forEach(img => ImagesF.push(`${global.ServerUri}${img.offerImage}`));
 
-                this.setState({ offer: ImagesF })
+                this.setState({ offer: responseJson.offers })
                 // console.log(offer);
             })
 
@@ -107,19 +114,19 @@ class HomeScreen extends Component {
         // }
     }
     render() {
-
-
+       const {navigation}=this.props
+       // const navigation=this.props
         // if (!this.state.offer.length) return <ActivityIndicator />
 
         return (
-            <View style={{ flex: 1, backgroundColor: "#F7F7F7" ,}}>
+            <View style={{ flex: 1, backgroundColor: "#F7F7F7", }}>
                 <ScrollView>
                     <View>
-                        <BackgroundCarousel images={this.state.offer} />
+                        <BackgroundCarousel navigation={navigation} images={this.state.offer} />
                     </View>
 
                     <View style={{ marginBottom: 30, }}>
-                        <Text style={{ fontSize: 30, textAlign: "center",fontFamily:"343a5dddcff7f1cbb08d964cc275cb50ce721215011931", marginBottom: 30 }}>بانوان</Text>
+                        <Text style={{ fontSize: 30, textAlign: "center", fontFamily:"BYekan+", marginBottom: 30 }}>بانوان</Text>
                         <FlatList horizontal showsHorizontalScrollIndicator={false} data={this.state.Women}
                             renderItem={({ item }) => (
                                 <View >
@@ -138,7 +145,7 @@ class HomeScreen extends Component {
                     </View>
 
                     <View style={{ marginBottom: 30, }}>
-                        <Text style={{ fontSize: 30, textAlign: "center", marginBottom: 30,fontFamily:"343a5dddcff7f1cbb08d964cc275cb50ce721215011931", }}>آقایان</Text>
+                        <Text style={{ fontSize: 30, textAlign: "center", marginBottom: 30,fontFamily:"BYekan+" }}>آقایان</Text>
                         <FlatList horizontal showsHorizontalScrollIndicator={false} data={this.state.Men}
                             renderItem={({ item }) => (
                                 <View >
@@ -153,7 +160,7 @@ class HomeScreen extends Component {
                     </View>
 
                     <View style={{ marginBottom: 30, }}>
-                        <Text style={{ fontSize: 30, textAlign: "center", marginBottom: 30 }}>کودکان</Text>
+                        <Text style={{ fontSize: 30, textAlign: "center", marginBottom: 30 ,fontFamily:"BYekan+"}}>کودکان</Text>
                         <FlatList horizontal showsHorizontalScrollIndicator={false} data={this.state.Kids}
                             renderItem={({ item }) => (
                                 <View >
@@ -185,7 +192,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginTop: 10,
         marginBottom: 3,
-        fontFamily: 'Kamran'
+        fontFamily:"BYekan+"
     },
     TouchableOpacityStyle: {
         borderColor: '#E5E2E2',

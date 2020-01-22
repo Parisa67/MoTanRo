@@ -32,7 +32,7 @@ import {
 class LoginScreen extends Component {
   static navigationOptions = {
     header: null,
-    };
+  };
   constructor(props) {
     super(props)
     this.state = {
@@ -51,10 +51,10 @@ class LoginScreen extends Component {
   showPass = () => {
     if (this.state.showPass == true) {
       this.setState({ showPass: false, press: true });
-     
+
     } else {
       this.setState({ showPass: true, press: false });
-     
+
 
     }
   }
@@ -72,7 +72,7 @@ class LoginScreen extends Component {
             source={require("../Picture/pic/loading/login.jpg")}
             style={{ width: '100%', height: '100%' }}>
             <View style={{ flex: 5, justifyContent: 'flex-end', alignItems: 'center', marginBottom: 10, }}>
-              <Text style={{ fontSize: 25, color: 'black', marginTop: 30, marginBottom: 30 }}>ورود به حساب کاربری</Text>
+              <Text style={{ fontSize: 25, color: 'black', marginTop: 30, marginBottom: 30,fontFamily:"BYekan+" }}>ورود به حساب کاربری</Text>
 
               <View style={styles.viewin}>
                 <TextInput placeholder="ایمیل یا شماره موبایل"
@@ -116,7 +116,7 @@ class LoginScreen extends Component {
               <TouchableOpacity
                 style={styles.tuch}
                 onPress={this._signInAsync}>
-                <Text style={{ color: 'black', fontSize: 20 }}
+                <Text style={{ color: 'black', fontSize: 20,fontFamily:"BYekan+" }}
                   returnKeyType="next"
                   autocapitalize="none"
                   onSubmitEditing={() => this.passwordInput.focus()}>ورود</Text>
@@ -127,16 +127,16 @@ class LoginScreen extends Component {
                 returnKeyType="go"
                 ref={(input) => this.passwordInput = input}
                 onPress={this._Register}>
-                <Text style={{ color: 'black', fontSize: 20 }}>ثبت نام</Text>
+                <Text style={{ color: 'black', fontSize: 20,fontFamily:"BYekan+" }}>ثبت نام</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={styles.tuch}
                 onPress={() => this.props.navigation.navigate('App')}>
-                <Text style={{ color: 'black', fontSize: 20 }}>انصراف</Text>
+                <Text style={{ color: 'black', fontSize: 20,fontFamily:"BYekan+" }}>انصراف</Text>
               </TouchableOpacity>
 
-              <Text style={{ fontSize: 20, color: 'red', marginTop: 30 }}>کلمه عبور را فراموش کرده اید؟</Text>
+              <Text style={{ fontSize: 20, color: 'red', marginTop: 30,fontFamily:"BYekan+" }}>کلمه عبور را فراموش کرده اید؟</Text>
 
             </View>
           </ImageBackground>
@@ -162,8 +162,9 @@ class LoginScreen extends Component {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-        "emailOrPhoneNumber": this.state.text,
-        "password": this.state.password });
+      "emailOrPhoneNumber": this.state.text,
+      "password": this.state.password
+    });
 
     var requestOptions = {
       method: 'POST',
@@ -214,7 +215,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 230,
     marginHorizontal: 35,
-
+    fontFamily:"BYekan+",
     paddingBottom: 1,
     fontSize: 20,
     backgroundColor: 'transparent',

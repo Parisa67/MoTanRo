@@ -105,7 +105,7 @@ class ProductScreen extends Component {
                                             height: 33,
                                             color: 'red',
                                             textAlign: "center",
-                                            fontFamily: 'Kamran'
+                                            fontFamily:"BYekan+"
                                         }}> {item.prices.originalPrice} تومان</Text>
 
                                         <Text style={{
@@ -117,7 +117,7 @@ class ProductScreen extends Component {
                                             height: 33,
                                             color: 'green',
                                             textAlign: "center",
-                                            fontFamily: 'Kamran'
+                                            fontFamily:"BYekan+"
                                         }}>با تخفیف:{item.prices.payPrice} تومان</Text>
                                     </View>
 
@@ -143,8 +143,7 @@ const styles = StyleSheet.create({
         height: 30,
         textAlign: "center",
         marginLeft: 12,
-        //marginBottom: 3,
-        fontFamily: 'Kamran'
+        fontFamily:"BYekan+"
     },
     TouchableOpacityStyle: {
         borderColor: '#E5E2E2',

@@ -2,7 +2,7 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  *
-* @format
+ * @format
  * @flow
  */
 
@@ -22,7 +22,8 @@ import {
     TouchableOpacity,
     TouchableHighlight,
     TextInput,
-    FlatList, ImageBackground,
+    FlatList,
+    ImageBackground,
     Image
 
 } from 'react-native';
@@ -51,33 +52,29 @@ class TypeKidsScreen extends Component {
     render() {
 
 
-        return (
-            <View style={{ flex: 1, backgroundColor: "#f0efef", justifyContent: "center", alignItems: "center" }}>
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <View style={styles.views}>
-                        < TouchableOpacity onPress={
-                            () => this.props.navigation.navigate('ListKalainfant')} >
-                            <Image source={require('../Picture//pic/loading/babi.jpg')}
-                                style={styles.img}></Image>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.views}>
-                        < TouchableOpacity onPress={
-                            () => this.props.navigation.navigate('ListKalagirl')}>
-                            <Image source={require('../Picture//pic/loading/girl2.jpg')}
-                                style={styles.img}></Image>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.views}>
-                        < TouchableOpacity onPress={
-                            () => this.props.navigation.navigate('ListKalaboy')
-                        } >
-                            <Image source={require('../Picture//pic/loading/boy2.jpg')}
-                                style={styles.img}></Image>
-                        </TouchableOpacity>
-                    </View>
-                </ScrollView>
-            </View>
+        return (<View style={
+            { flex: 1, backgroundColor: "#f0efef", justifyContent: "center", alignItems: "center" }} >
+            <ScrollView showsVerticalScrollIndicator={false} >
+                <View style={styles.views} >
+                    <TouchableOpacity onPress={
+                        () => this.props.navigation.navigate('ListKalainfant')
+                    } >
+                        <Image source={require('../Picture//pic/loading/babi.jpg')}
+                            style={styles.img} > </Image> </TouchableOpacity> </View> <View style={styles.views} >
+                    <TouchableOpacity onPress={
+                        () => this.props.navigation.navigate('ListKalagirl')
+                    } >
+                        <Image source={require('../Picture//pic/loading/girl2.jpg')}
+                            style={styles.img} > </Image> </TouchableOpacity> </View> <View style={styles.views} >
+                    <TouchableOpacity onPress={
+                        () => this.props.navigation.navigate('ListKalaboy')
+                    } >
+                        <Image source={require('../Picture//pic/loading/boy2.jpg')}
+                            style={styles.img} > </Image>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
+        </View>
         );
 
     }

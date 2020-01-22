@@ -51,15 +51,15 @@ class DrawerComponent extends Component {
   }
   _GetStorage = async () => {
     this.setState({ user: await AsyncStorage.getItem('userToken') });
-    alert(this.state.user)
-
+    // alert(this.state.user)    
     if (this.state.user === null) {
       this.setState({ loginOutIcon: 'login', loginOutText: 'ورود/ثبت نام', display: "none" })
     }
     else {
       this.setState({ loginOutIcon: 'logout', loginOutText: 'خروج', display: "flex" })
-
+      
     }
+    
   }
 
   componentDidMount() {
@@ -106,6 +106,7 @@ class DrawerComponent extends Component {
                   fontSize: 17,
                   paddingTop: 15,
                   marginBottom: 10,
+                  fontFamily:"BYekan+"
                 }}>{this.state.loginOutText}</Text>
 
             </View>
@@ -186,6 +187,7 @@ class DrawerComponent extends Component {
     else {
       await AsyncStorage.removeItem('userToken')
       this.setState({ user: null })
+      this.setState({ loginOutIcon: 'login', loginOutText: 'ورود/ثبت نام', display: "none" })
       this.props.navigation.closeDrawer();
       this.props.navigation.navigate('Home')
     }
@@ -200,9 +202,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     paddingTop: 15,
     marginBottom: 10,
-
-
-
+    fontFamily:"BYekan+",
     height: 40
   },
   icons: {
