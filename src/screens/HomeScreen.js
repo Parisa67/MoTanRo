@@ -6,8 +6,6 @@
  * @flow
  */
 
-//import Drawer from 'react-native-drawer'
-//import Icon from 'react-native-vector-icons/FontAwesome';
 import React, { Component } from 'react';
 import { BackgroundCarousel } from '../component/BackgroundCarousel';
 import { Header, Right, Icon, Left } from 'native-base';
@@ -15,30 +13,18 @@ import { Header, Right, Icon, Left } from 'native-base';
 
 
 import {
-    SafeAreaView,
+  
     StyleSheet,
     ScrollView,
     View,
     Text,
-    Platform,
-    Button,
-    ActivityIndicator,
-    StatusBar,
-    TouchableHighlight,
     TouchableOpacity,
     TextInput,
-    FlatList, ImageBackground, AsyncStorage,
+    FlatList, AsyncStorage,
     Image
 
 } from 'react-native';
 
-import {
-
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
 
 class HomeScreen extends Component {
@@ -51,6 +37,7 @@ class HomeScreen extends Component {
             Men: [],
             Kids: [],
             offer: [],
+            user:{},
 
         }
         this._GetStorage();
@@ -58,8 +45,8 @@ class HomeScreen extends Component {
     }
     _GetStorage = async () => {
         this.setState({ user: await AsyncStorage.getItem('userToken') });
-        if (this.state.user === null) {
-            
+        if (this.state.user.id == null) {
+            // this.setState({user.id:0})
         }
     }
 
@@ -71,8 +58,8 @@ class HomeScreen extends Component {
             .then((response) => response.json())
             .then((responseJson) => {
 
-                const statusCode = responseJson.status;
-                const ImagesF = [];
+                
+               // const ImagesF = [];
                 // responseJson.offers.forEach(img => ImagesF.push(`${global.ServerUri}${img.offerImage}`));
 
                 this.setState({ offer: responseJson.offers })

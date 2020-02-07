@@ -210,8 +210,8 @@ class RegisterScreen extends Component {
 
     }
     _SetStorage = async (rslt) => {
-        await AsyncStorage.setItem('userToken');
-
+      await AsyncStorage.setItem('userToken', JSON.stringify(rslt));
+  
     }
     _Register = async () => {
         if (this.state.user === "" ||

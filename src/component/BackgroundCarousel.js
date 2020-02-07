@@ -42,14 +42,13 @@ class BackgroundCarousel extends React.Component {
     render() {
         const { images } = this.props
         const { selectedIndex } = this.state
-        console.log("navigation",this.props.navigation)
         return (
             <View style={{ height: 250, width: '100%', backgroundColor: "red", marginBottom: 50, }}>
                 <ScrollView horizontal pagingEnabled
                     onMomentumScrollEnd={this.setSelectedIndex}
                     ref={this.scrollRef} showsHorizontalScrollIndicator={false}
                 >
-                    {images.map(image => (
+                    {images.map((image,i) => (
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Detail', { 'itemId': image.productId })}
                         // onPress={() => alert(image.productId)}
                         >
@@ -64,7 +63,7 @@ class BackgroundCarousel extends React.Component {
                 <View style={styles.circleDiv}>
                     {images.map((image, i) => (
                         <View
-                            key={image}
+                            key={image+i}
                             style={[styles.whiteCircle, { opacity: i === selectedIndex ? 0.5 : 1 }]} />
 
 

@@ -154,6 +154,7 @@ class LoginScreen extends Component {
   };
   _SetStorage = async (rslt) => {
     await AsyncStorage.setItem('userToken', JSON.stringify(rslt));
+   
 
   }
   _signInAsync = async () => {

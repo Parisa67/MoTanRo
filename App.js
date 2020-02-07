@@ -38,7 +38,8 @@ const AppStack = createStackNavigator({
             navigation
         }) => ({
 
-            headerTitle: < HeaderTitle navigation={navigation} menu={
+            headerTitle: < HeaderTitle navigation = { navigation }
+            menu = {
                 () => navigation.toggleDrawer()
             }
             />
@@ -49,10 +50,10 @@ const AppStack = createStackNavigator({
         navigationOptions: ({
             navigation
         }) => ({
-            headerTitle: < HeaderTitle navigation={navigation}
-                menu={
-                    () => navigation.toggleDrawer()
-                }
+            headerTitle: < HeaderTitle navigation = { navigation }
+            menu = {
+                () => navigation.toggleDrawer()
+            }
             />
         })
     },
@@ -61,10 +62,10 @@ const AppStack = createStackNavigator({
         navigationOptions: ({
             navigation
         }) => ({
-            headerTitle: < HeaderTitle navigation={navigation}
-                menu={
-                    () => navigation.toggleDrawer()
-                }
+            headerTitle: < HeaderTitle navigation = { navigation }
+            menu = {
+                () => navigation.toggleDrawer()
+            }
             />
         })
     },
@@ -73,7 +74,8 @@ const AppStack = createStackNavigator({
         navigationOptions: ({
             navigation
         }) => ({
-            headerTitle: < HeaderTitle navigation={navigation} menu={
+            headerTitle: < HeaderTitle navigation = { navigation }
+            menu = {
                 () => navigation.toggleDrawer()
             }
             />
@@ -84,7 +86,8 @@ const AppStack = createStackNavigator({
         navigationOptions: ({
             navigation
         }) => ({
-            headerTitle: < HeaderTitle navigation={navigation} menu={
+            headerTitle: < HeaderTitle navigation = { navigation }
+            menu = {
                 () => navigation.toggleDrawer()
             }
             />
@@ -95,7 +98,8 @@ const AppStack = createStackNavigator({
         navigationOptions: ({
             navigation
         }) => ({
-            headerTitle: < HeaderTitle navigation={navigation} menu={
+            headerTitle: < HeaderTitle navigation = { navigation }
+            menu = {
                 () => navigation.toggleDrawer()
             }
             />
@@ -106,7 +110,8 @@ const AppStack = createStackNavigator({
         navigationOptions: ({
             navigation
         }) => ({
-            headerTitle: < HeaderTitle navigation={navigation} menu={
+            headerTitle: < HeaderTitle navigation = { navigation }
+            menu = {
                 () => navigation.toggleDrawer()
             }
             />
@@ -117,7 +122,8 @@ const AppStack = createStackNavigator({
         navigationOptions: ({
             navigation
         }) => ({
-            headerTitle: < HeaderTitle navigation={navigation} menu={
+            headerTitle: < HeaderTitle navigation = { navigation }
+            menu = {
                 () => navigation.toggleDrawer()
             }
             />
@@ -128,7 +134,8 @@ const AppStack = createStackNavigator({
         navigationOptions: ({
             navigation
         }) => ({
-            headerTitle: < HeaderTitle navigation={navigation} menu={
+            headerTitle: < HeaderTitle navigation = { navigation }
+            menu = {
                 () => navigation.toggleDrawer()
             }
             />
@@ -141,11 +148,13 @@ const AppStack = createStackNavigator({
             navigation
         }) => ({
             headerTitle:
-                < HeaderTitle navigation={navigation} menu={
-                    () => navigation.toggleDrawer()
-                }
-                // navigation={this.props}
-                />
+                <
+                HeaderTitle navigation = { navigation }
+            menu = {
+                () => navigation.toggleDrawer()
+            }
+            // navigation={this.props}
+            />
         })
     },
     profile: {
@@ -153,7 +162,8 @@ const AppStack = createStackNavigator({
         navigationOptions: ({
             navigation
         }) => ({
-            headerTitle: < HeaderTitle navigation={navigation} menu={
+            headerTitle: < HeaderTitle navigation = { navigation }
+            menu = {
                 () => navigation.toggleDrawer()
             }
             />
@@ -171,9 +181,10 @@ const AppStack = createStackNavigator({
 const AuthStack = createStackNavigator({
     Login: LoginScreen,
     Register: RegisterScreen,
-    // headerMode: 'none',
-
-
+}, {
+    defaultNavigationOptions: {
+        header: null
+    }
 });
 
 const AppDrawer = createDrawerNavigator({
@@ -185,10 +196,10 @@ const AppDrawer = createDrawerNavigator({
     initialRouteName: 'Home'
 });
 const AppNavigator = createSwitchNavigator({
-    // AuthLoading: AuthLoadingScreen,
-    App: AppDrawer,
-    Auth: AuthStack,
-}
+        // AuthLoading: AuthLoadingScreen,
+        App: AppDrawer,
+        Auth: AuthStack,
+    }
     //   , {
 
     //     initialRouteName: 'AuthLoading',
@@ -198,9 +209,9 @@ const AppNavigator = createSwitchNavigator({
 
 
 const AppContainer = createAppContainer(AppNavigator);
-global.ServerUri = "http://192.168.1.119:5000/";
+global.ServerUri = "http://192.168.1.120:5000/";
 export default App = () => {
     // const {navigation}= this.props;
 
-    return (< AppContainer />)
+    return ( <AppContainer / > )
 }

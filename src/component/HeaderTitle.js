@@ -21,6 +21,22 @@ import {
 } from 'react-native';
 
 class HeaderTitle extends Component {
+    constructor (props){
+        super(props);
+        this.state={
+            user:{},
+        }
+        this._GetStorage().finally(()=>{
+            // alert(this.state.userId);
+        });
+
+    }
+         _GetStorage = async () => {
+             let user= JSON.parse(await AsyncStorage.getItem('userToken'));
+             this.setState({user:user});
+            // console.log(await AsyncStorage.getItem(this.state.basketName));
+  
+          }
     render() {
         return (
             < View style={
@@ -41,7 +57,7 @@ class HeaderTitle extends Component {
                         source={require('../Picture/mo.jpg')} style={{}}></Image>
                 </View>
                 <View style={{marginTop:10}}> 
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('CartScreen')} >
+                    <TouchableOpacity onPress={() =>(this.state.user !== null)? this.props.navigation.navigate('CartScreen',{ 'userId': this.state.user.id}) : alert('وارد حساب کاربری خود شوید...سبد خرید شما خالی است!!!')} >
                         <Icon type='FontAwesome5' name="shopping-cart"
                         style={{ fontSize: 23,
                                 paddingHorizontal: 14,

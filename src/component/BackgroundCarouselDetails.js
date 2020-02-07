@@ -49,9 +49,9 @@ render(){
 onMomentumScrollEnd={this.setSelectedIndex}
 ref={this.scrollRef} showsHorizontalScrollIndicator={false}
 >
-    {images.map(image =>(
+    {images.map((image,i) =>(
         <Image
-         key={image}
+         key={image+i}
           source ={{uri:image}} 
           style={styles.backgroundImage}/>
     ))}
@@ -59,10 +59,8 @@ ref={this.scrollRef} showsHorizontalScrollIndicator={false}
 <View style={styles.circleDiv}>
     {images.map((image,i)=>(
 <View
-    key={image}
+    key={i.toString()}
     style={[styles.whiteCircle,{opacity:i === selectedIndex ? 0.5:1}]}/>
-
-
     ) )}     
          
 
